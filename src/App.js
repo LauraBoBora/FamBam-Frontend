@@ -1,12 +1,16 @@
-import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
+import { Route, Routes } from "react-router-dom";
+import { Login, Signup } from "./pages";
+import Home from "./pages/Home";
+
 
 function App() {
   return (
     <div className="App">
-      <Header></Header>
-      Hello World
-      <Footer></Footer>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </div>
   );
 }
