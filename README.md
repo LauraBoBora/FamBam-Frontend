@@ -2,7 +2,7 @@
 
 ## SEIR Carina Capstone Project
 
-An app for parents and kids to keep track of chores & allowance.
+An app for parents and kids to keep track of chores & tasks, and get awards & allowance.
 
 ## User Stories
 
