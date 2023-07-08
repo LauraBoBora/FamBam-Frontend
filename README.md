@@ -22,17 +22,17 @@ An app for parents and kids to keep track of chores & allowance.
 ## ERD / Trello / Wireframes / Screenshots
 
 Entity Relationship Diagram
-![ERD](images/erd.png)
+![ERD](readme/erd.png)
 
 Trello Board - https://trello.com/b/vNUeoQjH/capstone
 
 Wireframe
-![wireframe](images/Page1.jpg)
-![wireframe](images/Page2.jpg)
-![wireframe](images/Page3.jpg)
-![wireframe](images/Page4.jpg)
-![wireframe](images/Page5.jpg)
-![wireframe](images/Page6.jpg)
+![wireframe](readme/Page1.jpg)
+![wireframe](readme/Page2.jpg)
+![wireframe](readme/Page3.jpg)
+![wireframe](readme/Page4.jpg)
+![wireframe](readme/Page5.jpg)
+![wireframe](readme/Page6.jpg)
 
 ## Technologies Used
 
