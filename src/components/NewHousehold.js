@@ -28,7 +28,8 @@ const NewHousehold = ({handleCloseModal}) => {
             headers: {
             'Content-Type': 'application/json'
             },
-            body: JSON.stringify(newHousehold)
+            body: JSON.stringify(newHousehold),
+            credentials: 'include'
         };
         try {
             const responseData = await fetch (`http://localhost:4000/household`, options);
