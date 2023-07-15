@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import Modal from "react-bootstrap/Modal";
 import NewHousehold from "../components/NewHousehold";
-
 
 const Home = () => {
   const navigate = useNavigate();
   const [cookies, removeCookie] = useCookies([]);
   const [username, setUsername] = useState("");
-  const [userHHId, setUserHHId] = useState("");
+  const [userHHId, setUserHHId] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
 
@@ -26,8 +26,9 @@ const Home = () => {
         { withCredentials: true }
       );
       const { status, user, householdId } = data;
+      console.log(data);
       setUserHHId(householdId);
-      // console.log(householdId);
+      console.log(userHHId);
       setUsername(user);
       return status
         ? toast(`Hello ${user}`, {
@@ -37,7 +38,7 @@ const Home = () => {
         : (removeCookie("token"), navigate("/login"));
     };
     verifyCookie();
-  }, [cookies, navigate, removeCookie]);
+  }, [cookies, navigate, removeCookie, userHHId]);
   const Logout = () => {
     removeCookie("token");
     navigate("/signup");
@@ -48,6 +49,11 @@ const Home = () => {
 
   const handleCreateHousehold = () => {
     setShowModal(true);
+  };
+
+  const handleNewHousehold = (hh_data) => {
+    setUserHHId(hh_data.id);
+    setShowModal(false);
   };
 
   const handleCloseModal = () => {
@@ -64,7 +70,7 @@ const Home = () => {
           Welcome <span>{username}</span>
         </h4>
         <button onClick={Logout}>LOGOUT</button>
-        <div>{userHHId == null ? (
+        <div>{!userHHId? (
           <div>
           <Button>Join a Household</Button>
           <Button onClick={handleCreateHousehold}>Create a Household</Button>
@@ -73,21 +79,21 @@ const Home = () => {
       </div>
       <ToastContainer />
 
-      <Modal className="custom-modal">
+      <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Create a New Household</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <NewHousehold  />
+          <NewHousehold handleNewHousehold={handleNewHousehold}/>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => handleCloseModal()}>
+          <Button variant="secondary" onClick={handleCloseModal}>
             Cancel
           </Button>
         </Modal.Footer>
       </Modal>
 
-      {showModal && <NewHousehold handleCloseModal={handleCloseModal}/>}
+      {/* {showModal && <NewHousehold handleCloseModal={handleCloseModal}/>} */}
     </>
   );
 };

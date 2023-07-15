@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 
 // create component, pass props
-const NewHousehold = ({handleCloseModal}) => {
+const NewHousehold = ({handleNewHousehold}) => {
 
     // set up states
     const [myHousehold, setMyHousehold] = useState("");
@@ -35,14 +35,15 @@ const NewHousehold = ({handleCloseModal}) => {
             const responseData = await fetch (`http://localhost:4000/household`, options);
             if (responseData.ok) {
             const newHHObj = await responseData.json();
-            console.log(newHHObj);
+            console.log("newHHObj: " , newHHObj);
+            handleNewHousehold(newHHObj._id);
             } else {
             console.log('Failed to create household', responseData.status);
             }
         } catch (error) {
             console.log('Error: ', error);
         }
-        handleCloseModal();
+        
     }
 
   // new household form
