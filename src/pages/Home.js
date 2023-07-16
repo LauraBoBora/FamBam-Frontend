@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import { Button } from "react-bootstrap";
-import Modal from "react-bootstrap/Modal";
+import { Button, Modal } from "react-bootstrap";
 import NewHousehold from "../components/NewHousehold";
 
 const Home = () => {
