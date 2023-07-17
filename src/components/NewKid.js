@@ -38,21 +38,21 @@ const NewKid = ({handleNewKid}) => {
         try {
             const responseData = await fetch (`http://localhost:4000/kids`, options);
             if (responseData.ok) {
-            const newKidObj = await responseData.json();
-            console.log("newKidObj: " , newKidObj);
-            handleNewKid();
+                const newKidObj = await responseData.json();
+                console.log("newKidObj: " , newKidObj);
+                handleNewKid(newKidObj);
             } else {
-            console.log('Failed to create kiddo', responseData.status);
+                console.log('Failed to create kiddo', responseData.status);
             }
         } catch (error) {
             console.log('Error: ', error);
         }
     }
 
-    useEffect(() => {
-        //get kids
-        //setKids
-    });
+    // useEffect(() => {
+    //     //get kids
+    //     //setKids
+    // });
 
   // new kid form
   return (
@@ -71,7 +71,7 @@ const NewKid = ({handleNewKid}) => {
             <Form.Group className="mb-3">
             <Form.Label>Kid Password</Form.Label>
             <Form.Control
-                type="text"
+                type="password"
                 value={kidPW}
                 name="kid-password"
                 placeholder="Enter Your Kiddo's Temporary Password"

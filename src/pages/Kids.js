@@ -36,13 +36,16 @@ const Kids = () => {
   const handleShowModal = () => {
       setShowModal(true);
   };
-  const handleNewKid = () => {
+  const handleNewKid = (newKid) => {
+      setMyKids(current => [...current, newKid]);
       setShowModal(false);
   };
+  const handleDeleteKid = (kidId) => {
+    setMyKids((prev) => prev.filter((p) => p._id !== kidId ));
+  }
 
   return (
         <>
-        <NavBar />
         <Container>
             <Card>
                 <Card.Header>
@@ -59,9 +62,10 @@ const Kids = () => {
                   <Container className="overflow.auto">
                     <Row xs={12} md={4}>
                       {myKids.map((kid) => (
-                        <Kid key={kid._id} kidData={kid} /> 
+                        <Kid key={kid._id} kidData={kid} handleDelKid={handleDeleteKid} /> 
                       ))}
                     </Row>
+                    <br/>
                   </Container>
                   ):(
                     "Loading..."

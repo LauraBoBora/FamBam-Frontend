@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { Container, Row, Col, Card, Button, Form} from 'react-bootstrap';
+
 
 const Login = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
-    email: "",
+    username: "",
     password: "",
   });
-  const { email, password } = inputValue;
+  const { username, password } = inputValue;
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -52,40 +54,66 @@ const Login = () => {
     }
     setInputValue({
       ...inputValue,
-      email: "",
+      username: "",
       password: "",
     });
   };
 
   return (
-    <div className="form_container">
-      <h2>Login Account</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Enter your email"
-            onChange={handleOnChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Enter your password"
-            onChange={handleOnChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-        <span>
-          Already have an account? <Link to={"/signup"}>Signup</Link>
-        </span>
-      </form>
+    <div>
+      <Container>
+        <Row className="vh-100 d-flex justify-content-center align-items-center">
+          <Col md={8} lg={6} xs={12}>
+            <Card className="shadow">
+              <Card.Body>
+                <div className="mb-3 mt-md-4">
+                  <h2 className="fw-bold mb-2 text-uppercase ">FamBam</h2>
+                  <p className=" mb-4">Login or Sign Up</p>
+                  <div className="mb-3">
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label className="text-center">
+                          Username
+                        </Form.Label>
+                        <Form.Control 
+                          type="text" 
+                          name="username"
+                          value={username}
+                          placeholder="Enter username"
+                          onChange={handleOnChange} />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control name="password" value={password} onChange={handleOnChange} type="password" placeholder="Password" />
+                      </Form.Group>
+                      <Form.Group
+                        className="mb-3"
+                        controlId="formBasicCheckbox"
+                      >
+                      </Form.Group>
+                      <div className="d-grid">
+                        <Button variant="primary" type="submit">
+                          Login
+                        </Button>
+                      </div>
+                    </Form>
+                    <div className="mt-3">
+                      <p className="mb-0  text-center">
+                        Don't have an account?{" "}
+                        <a href="/signup" className="text-primary fw-bold">
+                          Sign Up
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
       <ToastContainer />
     </div>
   );
