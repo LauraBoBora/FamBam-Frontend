@@ -17,8 +17,6 @@ const NavBar = () => {
             <Navbar.Toggle />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className='ms-auto'>
-                    <Nav.Link href="/household">Tasks</Nav.Link>
-                    <Nav.Link href="/kids">Kids</Nav.Link>
                     <Nav.Link onClick={Logout} href="#">Logout</Nav.Link>
                 </Nav>
             </Navbar.Collapse>

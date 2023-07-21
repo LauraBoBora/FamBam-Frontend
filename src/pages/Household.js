@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
 import NewBam from '../components/NewBam';
 import NavBar from '../components/NavBar';
+import { useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
 import { Modal, Container, Card, Table, Nav, Navbar, Button, Alert } from "react-bootstrap/";
 import { MDBBtn } from 'mdb-react-ui-kit'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import EditDeleteHousehold from "../components/EditDeleteHH";
 import Kids from "./Kids";
 import Bams from "./Bams";
+import axios from 'axios';
 
 
 
 const Household = () => {
     // set up states
+    const navigate = useNavigate();
+    const [cookies, removeCookie] = useCookies([]);
     const [myHousehold, setMyHousehold] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [showEditHHModal, setShowEditHHModal] = useState(false);
+    const [user, setUser] = useState(null);
+    const [userName, setUserName] = useState("");
 
     // backend url
     const householdURL = `http://localhost:4000/household`;
@@ -30,8 +37,26 @@ const Household = () => {
         }
     };
 
-    useEffect(() => {
+    const fetchUser = async () => {
+        try {
+            const { data } = await axios.post(
+                "http://localhost:4000",
+                {},
+                { withCredentials: true }
+            );
+            const { status } = data;
+            if (!status) {
+                removeCookie('token');
+                navigate('/login');
+            }
+            setUser(data);
+        } catch(error) {
+            console.log(error)
+        }
+    };
 
+    useEffect(() => {
+        fetchUser();
         fetchHouseholdData();
     }, []);
 
@@ -64,74 +89,27 @@ const Household = () => {
                 <div className='d-flex justify-content-center align-items-center h-100'>
                     <div className='text-white'>
                         <h1 className='mb-3' >{myHousehold ? (myHousehold.householdName) : ("Loading...")}</h1>
-                        <MDBBtn tag="a" size="lg" onClick={handleShowEditModal}>Edit Household</MDBBtn>
+                        {user?.isParent ? (
+                            <MDBBtn tag="a" size="lg" onClick={handleShowEditModal}>Edit Household</MDBBtn>
+                        ) : (
+                            <></>
+                        )}
                     </div>
                 </div>
                 <br/>
             </div>
         </div>
         <br/>
-        <Kids />
-        <br/>
+        {user?.isParent ? (
+        <>
+            <Kids />
+            <br/>
+        </>
+        ) : (<></>)
+        }       
         <Bams />
+        <br/>
         <Container>
-            <Card>
-                <Card.Header>
-                    <Navbar>
-                    <Nav className="me-auto">
-                        <Navbar.Brand>Tasks</Navbar.Brand> 
-                    </Nav>
-                    <Nav>
-                        <Button onClick={handleShowModal}>New Task</Button>
-                    </Nav>
-                    </Navbar>
-                </Card.Header>
-                {!myHousehold ? (
-                <Alert key="info">No Tasks!</Alert>
-                ) : (
-                <Table className="table mb-0">
-                <thead>
-                    <tr>
-                    <th>Kid</th>
-                    <th>Bam</th>
-                    <th>Due</th>
-                    <th>Points</th>
-                    <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                <tr className="fw-normal">
-                    <th>
-                    <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
-                        className="shadow-1-strong rounded-circle"
-                        alt="avatar 1"
-                        style={{ width: "55px", height: "auto" }}
-                    />
-                    <span className="ms-2">Alice Mayer</span>
-                    </th>
-                    <td className="align-middle">
-                    <span>Call Sam For payments</span>
-                    </td>
-                    <td className="align-middle">
-                    <h6 className="mb-0">
-                        <span className="badge bg-danger">High priority</span>
-                    </h6>
-                    </td>
-                    <td className="align-middle">100</td>
-                    <td className="align-middle">
-                    <a href="#!" data-mdb-toggle="tooltip" title="Done">
-                        <i className="fas fa-check text-success me-3"></i>
-                    </a>
-                    <a href="#!" data-mdb-toggle="tooltip" title="Remove">
-                        <i className="fas fa-trash-alt text-danger"></i>
-                    </a>
-                    </td>
-                </tr>
-                </tbody>
-                </Table>
-                )}
-            </Card>
             <Card>
             <Card.Header>
                     <Navbar>

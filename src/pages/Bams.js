@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import NavBar from "../components/NavBar";
 import { Modal, Button, Nav, Navbar, Container, Card, Table } from "react-bootstrap"
 import NewBam from "../components/NewBam";
-import Row from 'react-bootstrap/Row';
 import Bam from '../components/Bam';
+import axios from 'axios';
 
 
 const Bams = () => {
   // set up states
   const [theBams, setMyBams] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState(null);
   // backend url
   const bamsURL = `http://localhost:4000/bams`;
 
@@ -23,7 +24,21 @@ const Bams = () => {
       }
   };
 
+  const fetchUserData = async() => {
+      try {
+          const { data } = await axios.post(
+              "http://localhost:4000",
+              {},
+              { withCredentials: true }
+          );
+          setUser(data);
+      } catch(error) {
+          console.log(error)
+      }
+  };
+
   useEffect(() => {
+    fetchUserData();
     fetchBamsData();
   },[]);
 
@@ -58,9 +73,12 @@ const Bams = () => {
                     <Nav className="me-auto">
                         <Navbar.Brand>Bams</Navbar.Brand> 
                     </Nav>
+                    {user?.isParent ? (
                     <Nav>
                         <Button onClick={handleShowModal}>New Bam</Button>
                     </Nav>
+                    ) : (<></>)
+                    } 
                     </Navbar>
                 </Card.Header>
                 <Card.Body>
@@ -71,7 +89,9 @@ const Bams = () => {
                     <th>Bam</th>
                     <th>Due</th>
                     <th>Points</th>
+                    <th>Status</th>
                     <th>Actions</th>
+                    {user?.isParent ? (<th>Parent Action</th>) : (<th>Kid Action</th>) }
                     </tr>
                 </thead>
                 <tbody>

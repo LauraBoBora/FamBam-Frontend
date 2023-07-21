@@ -26,12 +26,14 @@ const Kids = () => {
   };
 
   useEffect(() => {
-    console.log("useEffect ran");
     fetchKidsData();
   },[]);
 
   const handleCloseModal = () => {
       setShowModal(false);
+  };
+  const handleRefreshKids = () => {
+    fetchKidsData();
   };
   const handleShowModal = () => {
       setShowModal(true);
@@ -54,6 +56,9 @@ const Kids = () => {
                         <Navbar.Brand>Kids</Navbar.Brand> 
                     </Nav>
                     <Nav>
+                        <Button onClick={handleRefreshKids} variant="link">
+                          <i className="fa-solid fa-arrows-rotate"></i>
+                        </Button>
                         <Button onClick={handleShowModal}>Add a Kid</Button>
                     </Nav>
                     </Navbar>

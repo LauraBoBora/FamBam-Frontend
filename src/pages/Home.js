@@ -25,9 +25,7 @@ const Home = () => {
         { withCredentials: true }
       );
       const { status, user, householdId } = data;
-      console.log(data);
       setUserHHId(householdId);
-      console.log(userHHId);
       setUsername(user);
       return status
         ? toast(`Hello ${user}`, {

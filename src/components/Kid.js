@@ -84,6 +84,8 @@ const Kid = ({kidData, handleDelKid}) => {
 
   const [showModal, setShowModal] = useState(false);
   const [kidName, setKidName] = useState(kidData.username);
+  const [kidPoints, setKidPoints] = useState(kidData.awardPoints);
+  console.log(kidData.awardPoints);
 
   const handleCloseModal = () => {
   setShowModal(false);
@@ -133,7 +135,7 @@ const Kid = ({kidData, handleDelKid}) => {
                 />
                 <div className="ms-3">
                     <p className="fw-bold mb-1">{kidName}</p>
-                    <p className="text-muted mb-0">Points: 321</p>
+                    <p className="text-muted mb-0">Points: {kidData.awardPoints}</p>
                 </div>
               </div>
             <ButtonGroup>
