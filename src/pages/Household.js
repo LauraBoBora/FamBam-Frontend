@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import NewTask from '../components/NewTask';
+import NewBam from '../components/NewBam';
 import NavBar from '../components/NavBar';
 import { Modal, Container, Card, Table, Nav, Navbar, Button, Alert } from "react-bootstrap/";
 import { MDBBtn } from 'mdb-react-ui-kit'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import EditDeleteHousehold from "../components/EditDeleteHH";
-import Kids from "./Kids"
+import Kids from "./Kids";
+import Bams from "./Bams";
 
 
 
@@ -40,7 +41,7 @@ const Household = () => {
     const handleShowModal = () => {
         setShowModal(true);
     };
-    const handleNewTask = () => {
+    const handleNewBam = () => {
         setShowModal(false);
     };
 
@@ -72,6 +73,7 @@ const Household = () => {
         <br/>
         <Kids />
         <br/>
+        <Bams />
         <Container>
             <Card>
                 <Card.Header>
@@ -150,7 +152,7 @@ const Household = () => {
                 <Modal.Title>Create a New Task</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <NewTask handleNewTask={handleNewTask}/>
+                <NewBam handleNewBam={handleNewBam}/>
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleCloseModal}>Cancel</Button>

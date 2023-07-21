@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import { Form, Modal, Button, ButtonGroup } from 'react-bootstrap';
+import { Form, Modal, Button, ButtonGroup, Card } from 'react-bootstrap';
 import {
   MDBCol,
   MDBListGroup,

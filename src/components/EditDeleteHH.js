@@ -17,7 +17,7 @@ const EditDeleteHousehold = ({myHousehold}) => {
 
     // when typing into form
     const onChangeHandler = (e, setValue) => {
-        setValue(e.target.value);
+        setEditHHName(e.target.value);
     };
 
     // handle household name update
@@ -29,7 +29,8 @@ const EditDeleteHousehold = ({myHousehold}) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ householdName: editHHName })
+                body: JSON.stringify({ householdName: editHHName }),
+                credentials: 'include'
             };
             const responseData = await fetch(`http://localhost:4000/household`, options);
             if (!responseData.ok) {
@@ -49,7 +50,8 @@ const EditDeleteHousehold = ({myHousehold}) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ householdId: myHousehold.id})
+                body: JSON.stringify({ householdId: myHousehold.id}),
+                credentials: 'include'
             }
             const responseData = await fetch(`https://localhost:4000/household`, options);
             console.log('household deleted')
@@ -81,10 +83,10 @@ const EditDeleteHousehold = ({myHousehold}) => {
                 <Form.Label>Household Name</Form.Label>
                 <Form.Control
                     type="text"
-                    value={myHousehold.householdName}
+                    value={editHHName}
                     name="household-name"
                     placeholder="Edit Household Name"
-                    onChange={(e) => onChangeHandler(e, setEditHHName)} 
+                    onChange={onChangeHandler} 
                 />
                 </Form.Group>
                 <Button variant="primary" type="submit">Edit Household Name</Button>
