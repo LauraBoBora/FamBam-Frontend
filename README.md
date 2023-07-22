@@ -8,15 +8,20 @@ An app for parents and kids to keep track of chores & tasks, and get awards & al
 
 - As a parent user, I want to..
 
+  - Create a household
   - Create kid users
-  - Create tasks and chores
-  - Assign tasks and chores to one or multiple kids
-  - Assign tasks and chores due dates or frequencies, and award amounts
-  - Score tasks and chores to determine award amount
+  - Create tasks (Bams)
+  - Assign Bams to a kid
+  - Assign Bams due dates, and award amounts
+
 
 - As a kid user, I want to..
-  - View tasks and chores
-  - Mark tasks and chores complete
+  - View Bams
+  - Mark Bams complete
+
+
+- Stretch Goal
+  - Create awards
   - Redeem awards
 
 ## ERD / Trello / Wireframes / Screenshots
