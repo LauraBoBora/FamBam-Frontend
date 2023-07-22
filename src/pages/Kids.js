@@ -26,22 +26,29 @@ const Kids = () => {
   };
 
   useEffect(() => {
+    // Get all the kids for this household
     fetchKidsData();
   },[]);
 
+  // Add a new Kid Modal
   const handleCloseModal = () => {
       setShowModal(false);
-  };
-  const handleRefreshKids = () => {
-    fetchKidsData();
   };
   const handleShowModal = () => {
       setShowModal(true);
   };
+  
+  // When you click 'refresh' on the frontend (
+  //added to update points when bam is verified)
+  const handleRefreshKids = () => {
+    fetchKidsData();
+  };
+  // Called from the modal to add a new kid to our state
   const handleNewKid = (newKid) => {
       setMyKids(current => [...current, newKid]);
       setShowModal(false);
   };
+  // remove kid from list
   const handleDeleteKid = (kidId) => {
     setMyKids((prev) => prev.filter((p) => p._id !== kidId ));
   }

@@ -4,13 +4,14 @@ import axios from 'axios';
 import { Button, ButtonGroup } from 'react-bootstrap';
 
 const Bam = ({bamData, handleDelBam}) => {
-
+    // setup states
     const [kidName, setKidName] = useState("Unassigned");
     const [user, setUser] = useState(null);
-    let status = "To Do"
-    if (bamData.complete) status = "Completed";
-    const [bamStatus, setBamStatus] = useState(status);
 
+    // set initial status of Bam
+    const [bamStatus, setBamStatus] = useState("To Do");
+
+    // Get the name of the kid who is assigned this Bam
     const fetchKid = async () => {
         try {
             if (bamData.assignee !== "Unassigned") {
@@ -25,6 +26,7 @@ const Bam = ({bamData, handleDelBam}) => {
         }
     };
 
+    // Get the current user (so we know what to show or hide)
     const fetchUser = async () => {
         try {
             const { data } = await axios.post(
@@ -38,6 +40,7 @@ const Bam = ({bamData, handleDelBam}) => {
         }
     };
 
+    //Deleting a Bam, also calling handleDelBam from Bams component to remove BAM from list.
     const handleDeleteBam = async() => {
         console.log("Deleting Bam");
         try {
@@ -49,24 +52,28 @@ const Bam = ({bamData, handleDelBam}) => {
                 credentials: 'include'
             };
             await fetch("http://localhost:4000/bams/"+bamData._id, options);
+            // remove bam from list in Bams (parent) component
             handleDelBam(bamData._id);
         } catch(error) {
             console.error(error);
         }
     };
 
+    // When a user (kid or parent) marks bam Complete
     const handleCompleteBam = async() => {
         console.log("Completing Bam");
         try {
             const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/complete", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
             bamData.completed = true;
+            // Update status
             setBamStatus("Completed");
         } catch(error) {
             console.error(error);
         }
     };
 
+    // If it's not really complete, reset it back to To Do.
     const handleResetBam = async() => {
         console.log("resetting Bam");
         try {
@@ -79,25 +86,28 @@ const Bam = ({bamData, handleDelBam}) => {
         }
     };
 
+    // If a bam is unassigned, a KID can claim it (not a parent)
     const handleClaimBam = async() => {
         console.log("Claiming Bam");
         try {
             const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/claim", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
             bamData.assignee = resData.assignee;
+            // fetch Kid data since this bam was previously unassigned (no kid data)
             fetchKid();
         } catch(error) {
             console.error(error);
         }
     }
 
+    // Verify the bam, PARENT ACTION ONLY, verifies completed bam
     const handleVerifyBam = async() => {
         console.log("verifying bam");
+        // verify backend will handle awarding the points to the KID
         try {
             const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/verify", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
-            bamData.completed = true;
-            setBamStatus("Complete");
+            // delete the bam
             handleDeleteBam();
         } catch(error) {
             console.error(error);
@@ -105,13 +115,17 @@ const Bam = ({bamData, handleDelBam}) => {
     };
 
     useEffect(() => {
+        // set initial status
         let status = "To Do"
         if (bamData.completed) status = "Completed";
         setBamStatus(status);
+        // get logged in user to check isParent
         fetchUser();
+        // Get assignee (if not unassigned)
         fetchKid();
     }, []);
 
+    // setup the due date
     const date = dayjs(bamData.dueDate);
     bamData.dueDate = date.format("dddd, MMMM D");
 
@@ -158,7 +172,7 @@ const Bam = ({bamData, handleDelBam}) => {
         {user?.isParent ? (
             <td className='align-middle'>
                 <ButtonGroup>
-                    <Button onClick={handleVerifyBam} size="sm" variant="success">
+                    <Button onClick={handleVerifyBam} size="sm" variant="success" disabled={bamStatus === "To Do"}>
                         <i className="fa-solid fa-star"></i> Verify
                     </Button>
                 </ButtonGroup>

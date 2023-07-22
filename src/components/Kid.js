@@ -44,6 +44,7 @@ const EditKidModal = ({handleEditKid, kidId}) => {
             } else {
             console.log('Failed to update kiddo', responseData.status);
             }
+            // updates kid username on Kid Component
             handleEditKid(updateKid.username);
         } catch (error) {
             console.log('Error: ', error);
@@ -82,25 +83,29 @@ const EditKidModal = ({handleEditKid, kidId}) => {
 
 const Kid = ({kidData, handleDelKid}) => {
 
+  //Set up states
   const [showModal, setShowModal] = useState(false);
   const [kidName, setKidName] = useState(kidData.username);
-  const [kidPoints, setKidPoints] = useState(kidData.awardPoints);
   console.log(kidData.awardPoints);
 
+  //show and close EditKid Modal
   const handleCloseModal = () => {
-  setShowModal(false);
+    setShowModal(false);
   };
 
   const handleShowModal = () => {
       setShowModal(true);
   };
 
+  //Passed to Kid component, updates name and closes modal.
   const handleEditKid = (newName) => {
     setKidName(newName);
     setShowModal(false);
   }
 
+  //Deleting a kid POST request and front-end update
   const handleDeleteKid = async() => {
+    // set up request options
     const options = {
       method: 'DELETE',
       headers: {
@@ -108,6 +113,7 @@ const Kid = ({kidData, handleDelKid}) => {
       },
       credentials: 'include'
       };
+      // make delete request
       try {
         const responseData = await fetch (`http://localhost:4000/kids/`+kidData._id, options);
         if (responseData.ok) {
@@ -115,6 +121,7 @@ const Kid = ({kidData, handleDelKid}) => {
         } else {
           console.log('Failed to delete kiddo', responseData.status);
         }
+        //Remove the Kid from Kids component
         handleDelKid(kidData._id);
       } catch (error) {
           console.log('Error: ', error);
