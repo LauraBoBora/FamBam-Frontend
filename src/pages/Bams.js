@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
 import { Modal, Button, Nav, Navbar, Container, Card, Table } from "react-bootstrap"
 import NewBam from "../components/NewBam";
 import Bam from '../components/Bam';

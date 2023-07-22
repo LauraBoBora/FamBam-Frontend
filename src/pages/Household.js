@@ -1,16 +1,17 @@
+// https://mdbootstrap.com/docs/standard/extended/to-do-list/
+
 import { useEffect, useState } from "react";
 import NewBam from '../components/NewBam';
 import NavBar from '../components/NavBar';
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { Modal, Container, Card, Table, Nav, Navbar, Button, Alert } from "react-bootstrap/";
+import { Modal, Container, Card, Nav, Navbar, Button } from "react-bootstrap/";
 import { MDBBtn } from 'mdb-react-ui-kit'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import EditDeleteHousehold from "../components/EditDeleteHH";
 import Kids from "./Kids";
 import Bams from "./Bams";
 import axios from 'axios';
-
 
 
 const Household = () => {
@@ -21,7 +22,6 @@ const Household = () => {
     const [showModal, setShowModal] = useState(false);
     const [showEditHHModal, setShowEditHHModal] = useState(false);
     const [user, setUser] = useState(null);
-    const [userName, setUserName] = useState("");
 
     // backend url
     const householdURL = `http://localhost:4000/household`;
@@ -144,9 +144,6 @@ const Household = () => {
             <Modal.Body>
                 <EditDeleteHousehold myHousehold={myHousehold} />
             </Modal.Body>
-            <Modal.Footer>
-                {/* Add buttons for saving changes, deleting the household, or closing the modal */}
-            </Modal.Footer>
         </Modal>
         </>
     );

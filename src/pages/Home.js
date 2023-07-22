@@ -90,11 +90,8 @@ const Home = () => {
         </Modal.Footer>
       </Modal>
 
-      {/* {showModal && <NewHousehold handleCloseModal={handleCloseModal}/>} */}
     </>
   );
 };
 
 export default Home;
-
-// https://mdbootstrap.com/docs/standard/extended/to-do-list/

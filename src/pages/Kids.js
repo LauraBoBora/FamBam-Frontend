@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NavBar from "../components/NavBar";
 import { Modal, Button, Nav, Navbar, Container, Card } from "react-bootstrap"
 import NewKid from "../components/NewKid";
 import Kid from "../components/Kid";
@@ -38,11 +37,11 @@ const Kids = () => {
       setShowModal(true);
   };
   
-  // When you click 'refresh' on the frontend (
-  //added to update points when bam is verified)
+  // When you click 'refresh' on the frontend (added to update points when bam is verified)
   const handleRefreshKids = () => {
     fetchKidsData();
   };
+
   // Called from the modal to add a new kid to our state
   const handleNewKid = (newKid) => {
       setMyKids(current => [...current, newKid]);
@@ -71,7 +70,7 @@ const Kids = () => {
                     </Navbar>
                 </Card.Header>
                 {myKids ? (
-                  <Container className="overflow.auto">
+                  <Container>
                     <Row xs={12} md={4}>
                       {myKids.map((kid) => (
                         <Kid key={kid._id} kidData={kid} handleDelKid={handleDeleteKid} /> 
