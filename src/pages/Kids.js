@@ -10,7 +10,7 @@ const Kids = () => {
   const [myKids, setMyKids] = useState(null);
   const [showModal, setShowModal] = useState(false);
   // backend url
-  const kidsURL = `http://localhost:4000/kids`;
+  const kidsURL = `https://fambam-backend.onrender.com/kids`;
 
   // fetch kids data
   const fetchKidsData = async() => {

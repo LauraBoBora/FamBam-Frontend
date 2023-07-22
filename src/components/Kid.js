@@ -37,7 +37,7 @@ const EditKidModal = ({handleEditKid, kidId}) => {
             credentials: 'include'
         };
         try {
-            const responseData = await fetch (`http://localhost:4000/kids/`+kidId, options);
+            const responseData = await fetch (`https://fambam-backend.onrender.com/kids/`+kidId, options);
             if (responseData.ok) {
               const newKidObj = await responseData.json();
               console.log("newKidObj: " , newKidObj);
@@ -115,7 +115,7 @@ const Kid = ({kidData, handleDelKid}) => {
       };
       // make delete request
       try {
-        const responseData = await fetch (`http://localhost:4000/kids/`+kidData._id, options);
+        const responseData = await fetch (`https://fambam-backend.onrender.com/kids/`+kidData._id, options);
         if (responseData.ok) {
           const newKidObj = await responseData.json();
         } else {

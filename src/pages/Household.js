@@ -24,7 +24,7 @@ const Household = () => {
     const [user, setUser] = useState(null);
 
     // backend url
-    const householdURL = `http://localhost:4000/household`;
+    const householdURL = `https://fambam-backend.onrender.com/household`;
 
     // fetch household data
     const fetchHouseholdData = async() => {
@@ -40,7 +40,7 @@ const Household = () => {
     const fetchUser = async () => {
         try {
             const { data } = await axios.post(
-                "http://localhost:4000",
+                "https://fambam-backend.onrender.com",
                 {},
                 { withCredentials: true }
             );

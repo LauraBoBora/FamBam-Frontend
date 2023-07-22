@@ -32,7 +32,7 @@ const NewHousehold = ({handleNewHousehold}) => {
             credentials: 'include'
         };
         try {
-            const responseData = await fetch (`http://localhost:4000/household`, options);
+            const responseData = await fetch (`https://fambam-backend.onrender.com/household`, options);
             if (responseData.ok) {
             const newHHObj = await responseData.json();
             console.log("newHHObj: " , newHHObj);

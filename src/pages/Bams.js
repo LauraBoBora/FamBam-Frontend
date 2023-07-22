@@ -11,7 +11,7 @@ const Bams = () => {
   const [showModal, setShowModal] = useState(false);
   const [user, setUser] = useState(null);
   // backend url
-  const bamsURL = `http://localhost:4000/bams`;
+  const bamsURL = `https://fambam-backend.onrender.com/bams`;
 
   // fetch kids data
   const fetchBamsData = async() => {
@@ -26,7 +26,7 @@ const Bams = () => {
   const fetchUserData = async() => {
       try {
           const { data } = await axios.post(
-              "http://localhost:4000",
+              "https://fambam-backend.onrender.com",
               {},
               { withCredentials: true }
           );

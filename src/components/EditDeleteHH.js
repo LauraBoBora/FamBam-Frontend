@@ -32,7 +32,7 @@ const EditDeleteHousehold = ({myHousehold}) => {
                 body: JSON.stringify({ householdName: editHHName }),
                 credentials: 'include'
             };
-            const responseData = await fetch(`http://localhost:4000/household`, options);
+            const responseData = await fetch(`https://fambam-backend.onrender.com/household`, options);
             if (!responseData.ok) {
                 throw new Error ('Failed to update household name');
             }

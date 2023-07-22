@@ -15,7 +15,7 @@ const Bam = ({bamData, handleDelBam}) => {
     const fetchKid = async () => {
         try {
             if (bamData.assignee !== "Unassigned") {
-                const response  = await fetch("http://localhost:4000/kids/"+ bamData.assignee, {credentials: 'include'});
+                const response  = await fetch("https://fambam-backend.onrender.com/kids/"+ bamData.assignee, {credentials: 'include'});
                 const data = await response.json();
                 setKidName(data.username);
             } else {
@@ -30,7 +30,7 @@ const Bam = ({bamData, handleDelBam}) => {
     const fetchUser = async () => {
         try {
             const { data } = await axios.post(
-                "http://localhost:4000",
+                "https://fambam-backend.onrender.com",
                 {},
                 { withCredentials: true }
             );
@@ -51,7 +51,7 @@ const Bam = ({bamData, handleDelBam}) => {
                 },
                 credentials: 'include'
             };
-            await fetch("http://localhost:4000/bams/"+bamData._id, options);
+            await fetch("https://fambam-backend.onrender.com/bams/"+bamData._id, options);
             // remove bam from list in Bams (parent) component
             handleDelBam(bamData._id);
         } catch(error) {
@@ -63,7 +63,7 @@ const Bam = ({bamData, handleDelBam}) => {
     const handleCompleteBam = async() => {
         console.log("Completing Bam");
         try {
-            const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/complete", {credentials: 'include', method: "PUT"});
+            const res = await fetch("https://fambam-backend.onrender.com/bams/" + bamData._id + "/complete", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
             bamData.completed = true;
             // Update status
@@ -77,7 +77,7 @@ const Bam = ({bamData, handleDelBam}) => {
     const handleResetBam = async() => {
         console.log("resetting Bam");
         try {
-            const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/reset", {credentials: 'include', method: "PUT"});
+            const res = await fetch("https://fambam-backend.onrender.com/bams/" + bamData._id + "/reset", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
             bamData.completed = true;
             setBamStatus("To Do");
@@ -90,7 +90,7 @@ const Bam = ({bamData, handleDelBam}) => {
     const handleClaimBam = async() => {
         console.log("Claiming Bam");
         try {
-            const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/claim", {credentials: 'include', method: "PUT"});
+            const res = await fetch("https://fambam-backend.onrender.com/bams/" + bamData._id + "/claim", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
             bamData.assignee = resData.assignee;
             // fetch Kid data since this bam was previously unassigned (no kid data)
@@ -105,7 +105,7 @@ const Bam = ({bamData, handleDelBam}) => {
         console.log("verifying bam");
         // verify backend will handle awarding the points to the KID
         try {
-            const res = await fetch("http://localhost:4000/bams/" + bamData._id + "/verify", {credentials: 'include', method: "PUT"});
+            const res = await fetch("https://fambam-backend.onrender.com/bams/" + bamData._id + "/verify", {credentials: 'include', method: "PUT"});
             const resData = await res.json();
             // delete the bam
             handleDeleteBam();

@@ -18,7 +18,7 @@ const NewBam = ({handleNewBam}) => {
       });
     const [myKids, setMyKids] = useState(null);
     const { bamName, description, points, dueDate, assignee} = bamData;
-    const kidsURL = `http://localhost:4000/kids`;
+    const kidsURL = `https://fambam-backend.onrender.com/kids`;
 
     const fetchKidsData = async() => {
         try {
@@ -59,7 +59,7 @@ const NewBam = ({handleNewBam}) => {
             credentials: 'include'
         };
         try {
-            const responseData = await fetch (`http://localhost:4000/bams`, options);
+            const responseData = await fetch (`https://fambam-backend.onrender.com/bams`, options);
             if (responseData.ok) {
                 const newBamObj = await responseData.json();
                 console.log("newKidObj: " , newBamObj);

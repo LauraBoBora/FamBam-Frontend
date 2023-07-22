@@ -36,7 +36,7 @@ const NewKid = ({handleNewKid}) => {
             credentials: 'include'
         };
         try {
-            const responseData = await fetch (`http://localhost:4000/kids`, options);
+            const responseData = await fetch (`https://fambam-backend.onrender.com/kids`, options);
             if (responseData.ok) {
                 const newKidObj = await responseData.json();
                 console.log("newKidObj: " , newKidObj);
